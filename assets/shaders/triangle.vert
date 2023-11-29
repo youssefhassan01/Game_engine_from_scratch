@@ -4,7 +4,6 @@
 // (-0.5, -0.5, 0.0), ( 0.5, -0.5, 0.0), ( 0.0,  0.5, 0.0)
 // And it also should send the vertex color as a varying to the fragment shader where the colors are (in order):
 // (1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0)
-
 out Varyings {
     vec3 color;
 } vs_out;
@@ -14,7 +13,29 @@ out Varyings {
 // Each vertex "v" should be transformed to be "scale * v + translation".
 // The default value for "translation" is (0.0, 0.0) and for "scale" is (1.0, 1.0).
 
-//TODO: (Req 1) Finish this shader
+// shader to draw a triangle
+uniform vec2 translation = vec2(0.0,0.0);
+uniform vec2 scale = vec2(1.0,1.0);
 
 void main(){
+    const vec3 initialPositions[3] = vec3[3](
+        vec3(-0.5, -0.5, 0.0),
+        vec3(0.5, -0.5, 0.0),
+        vec3(0.0, 0.5, 0.0)
+    );
+
+
+    const vec3 initialColors[3] = vec3[3](
+        vec3(1.0, 0.0, 0.0),
+        vec3(0.0, 1.0, 0.0),
+        vec3(0.0, 0.0, 1.0)
+    );
+
+    vec3 positions = initialPositions[gl_VertexID];
+    positions.xy *= scale;
+    positions.xy += translation;
+
+    gl_Position = vec4(positions,1.0);
+
+    vs_out.color = initialColors[gl_VertexID];
 }

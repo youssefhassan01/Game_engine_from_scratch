@@ -12,5 +12,8 @@ uniform int size = 32;
 uniform vec3 colors[2];
 
 void main(){
-    frag_color = vec4(colors[0], 1.0);
+    float factor = floor(gl_FragCoord.x/size) + floor(gl_FragCoord.y/size);
+    bool isColor1 = mod(factor,2.0) == 0.0;
+
+    frag_color = vec4(isColor1? colors[0] : colors[1],1.0);
 }
