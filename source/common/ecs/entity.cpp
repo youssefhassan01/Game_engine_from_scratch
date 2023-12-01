@@ -12,13 +12,11 @@ namespace our {
     // its parent's parent's matrix and so on till you reach the root.
     glm::mat4 Entity::getLocalToWorldMatrix() const {
         //TODO: (Req 8) Write this function
-        glm::mat4 localToWorld = localTransform.toMat4();
-        Entity* par = this->parent;
-        while(par != NULL){
-            localToWorld = par->localTransform.toMat4() * localToWorld;
-            par = par->parent;
+        glm::mat4 localToWorld = this->localTransform.toMat4();
+        if(this->parent != NULL){
+            localToWorld = this->parent->getLocalToWorldMatrix() * localToWorld;
         }
-        return glm::mat4(localToWorld);
+        return localToWorld;
     }
 
     // Deserializes the entity data and components from a json object
