@@ -19,7 +19,7 @@ bool our::ShaderProgram::attach(const std::string &filename, GLenum type) const 
     std::string sourceString = std::string(std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>());
     const char* sourceCStr = sourceString.c_str();
     file.close();
-
+    //TODO: Complete this function [Done]
     // From this part we read the source, compile it, check for compilation errors, then attach the shader to the program
     //Note: The function "checkForShaderCompilationErrors" checks if there is
     // an error in the given shader. You should use it to check if there is a
@@ -43,6 +43,7 @@ bool our::ShaderProgram::attach(const std::string &filename, GLenum type) const 
 
 
 bool our::ShaderProgram::link() const {
+    //TODO: Complete this function [Done]
     // this functions links all attached shaders to program to be executed
     //Note: The function "checkForLinkingErrors" checks if there is
     // an error in the given program. You should use it to check if there is a

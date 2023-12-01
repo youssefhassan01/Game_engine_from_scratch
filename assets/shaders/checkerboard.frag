@@ -6,7 +6,7 @@ out vec4 frag_color;
 // The color of the top-left most tile should be "colors[0]" and the 2 tiles adjacent to it
 // should have the color "colors[1]".
 
-//Draws CheckerBoard pattern
+//TODO: (Req 1) [Done] Finish this shader.
 
 uniform int size = 32;
 uniform vec3 colors[2];
@@ -23,7 +23,7 @@ void main(){
     //third line is simple if condition that checks our docndtion to draw color
     //i couldn't for the life of me use step() to make checkerboard to improve fragment shader as 
     //if condtions tend to be problematic, so decided to use if for the time being
-    // TODO : ask TA if anything other than if can be used 
+    // NOTE : ask TA if anything other than if can be used 
 
     float factor = floor(gl_FragCoord.x/size) + floor(gl_FragCoord.y/size);
     bool isColor1 = mod(factor,2.0) == 0.0;

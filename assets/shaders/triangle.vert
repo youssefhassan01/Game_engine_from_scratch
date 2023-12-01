@@ -13,7 +13,7 @@ out Varyings {
 // Each vertex "v" should be transformed to be "scale * v + translation".
 // The default value for "translation" is (0.0, 0.0) and for "scale" is (1.0, 1.0).
 
-// shader to draw a triangle
+//TODO: (Req 1) [Done] Finish this shader
 uniform vec2 translation = vec2(0.0,0.0);
 uniform vec2 scale = vec2(1.0,1.0);
 

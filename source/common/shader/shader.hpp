@@ -17,11 +17,11 @@ namespace our {
 
     public:
         ShaderProgram(){
-            // Create A shader program
+            //TODO: (Req 1) [Done] Create A shader program
             program = glCreateProgram();
         }
         ~ShaderProgram(){
-            // Delete a shader program
+            //TODO: (Req 1) [Done] Delete a shader program
             glDeleteProgram(program);
         }
 
@@ -34,14 +34,14 @@ namespace our {
         }
 
         GLuint getUniformLocation(const std::string &name) {
-            // Return the location of the uniform with the given name
+            //TODO: (Req 1) [Done] Return the location of the uniform with the given name
             const char* c_name = name.c_str(); 
             GLuint reqUniform = glGetUniformLocation(program,c_name);
             return reqUniform;
         }
 
         void set(const std::string &uniform, GLfloat value) {
-            // Send the given float value to the given uniform
+            //TODO: (Req 1) [Done] Send the given float value to the given uniform
             // Use getUniformLocation to find location of given name
             // Then sends it to glUniform1f to set the uniform
             GLuint reqUniform = getUniformLocation(uniform); 
@@ -49,7 +49,7 @@ namespace our {
         }
 
         void set(const std::string &uniform, GLuint value) {
-            // Send the given unsigned integer value to the given uniform
+            //TODO: (Req 1) [Done] Send the given unsigned integer value to the given uniform
             // Use getUniformLocation to find location of given name
             // Then sends it to glUniform1ui to set the uniform
             GLuint reqUniform = getUniformLocation(uniform); 
@@ -57,7 +57,7 @@ namespace our {
         }
 
         void set(const std::string &uniform, GLint value) {
-            // Send the given integer value to the given uniform
+            //TODO: (Req 1) [Done] Send the given integer value to the given uniform
             // Use getUniformLocation to find location of given name
             // Then sends it to glUniform1i to set the uniform
             GLuint reqUniform = getUniformLocation(uniform); 
@@ -65,7 +65,7 @@ namespace our {
         }
 
         void set(const std::string &uniform, glm::vec2 value) {
-            // Send the given 2D vector value to the given uniform
+            //TODO: (Req 1) [Done] Send the given 2D vector value to the given uniform
             // Use getUniformLocation to find location of given name
             // Then sends it to glUniform2f to set the uniform
             GLuint reqUniform = getUniformLocation(uniform); 
@@ -73,7 +73,7 @@ namespace our {
         }
 
         void set(const std::string &uniform, glm::vec3 value) {
-            // Send the given 3D vector value to the given uniform
+            //TODO: (Req 1) [Done] Send the given 3D vector value to the given uniform
             // Use getUniformLocation to find location of given name
             // Then sends it to glUniform3f to set the uniform
             GLuint reqUniform = getUniformLocation(uniform); 
@@ -81,7 +81,7 @@ namespace our {
         }
 
         void set(const std::string &uniform, glm::vec4 value) {
-            // Send the given 4D vector value to the given uniform
+            //TODO: (Req 1) [Done] Send the given 4D vector value to the given uniform
             // Use getUniformLocation to find location of given name
             // Then sends it to glUniform4f to set the uniform
             GLuint reqUniform = getUniformLocation(uniform); 
@@ -89,14 +89,14 @@ namespace our {
         }
 
         void set(const std::string &uniform, glm::mat4 matrix) {
-            // Send the given matrix 4x4 value to the given uniform
+            //TODO: (Req 1) [Done] Send the given matrix 4x4 value to the given uniform
             // Use getUniformLocation to find location of given name
             // Then sends it to glUniformMatrix4fv to set the uniform
             GLuint reqUniform = getUniformLocation(uniform); 
             glUniformMatrix4fv(reqUniform,1,false,glm::value_ptr(matrix));
         }
 
-        // Delete the copy constructor and assignment operator.
+        //TODO: (Req 1) [Done] Delete the copy constructor and assignment operator.
         ShaderProgram(const ShaderProgram&) = delete;
         ShaderProgram& operator=(const ShaderProgram&) = delete;
 
