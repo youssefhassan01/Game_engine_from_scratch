@@ -44,7 +44,7 @@ namespace our {
     void TexturedMaterial::setup() const {
         //TODO: (Req 7) [Done] Write this function
         TintedMaterial::setup();
-pow        shader->set("alphaThreshold",alphaThreshold);
+        shader->set("alphaThreshold",alphaThreshold);
         glActiveTexture(GL_TEXTURE0);
         (texture != NULL) ? texture->bind() : texture->unbind();
         (sampler != NULL) ? sampler->bind(0) : sampler->unbind(0);

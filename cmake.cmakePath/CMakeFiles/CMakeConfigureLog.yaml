@@ -1,0 +1,209 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineSystem.cmake:233 (message)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      The system is: Windows - 10.0.19045 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: C:/MinGW/bin/gcc.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.exe"
+      
+      The C compiler identification is GNU, found in:
+        E:/labs_2024_fall/cmps_205/proj/Graphics_project/cmake.cmakePath/CMakeFiles/3.28.0-rc3/CompilerIdC/a.exe
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: C:/MinGW/bin/c++.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.exe"
+      
+      The CXX compiler identification is GNU, found in:
+        E:/labs_2024_fall/cmps_205/proj/Graphics_project/cmake.cmakePath/CMakeFiles/3.28.0-rc3/CompilerIdCXX/a.exe
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "E:/labs_2024_fall/cmps_205/proj/Graphics_project/cmake.cmakePath/CMakeFiles/CMakeScratch/TryCompile-m9g2iq"
+      binary: "E:/labs_2024_fall/cmps_205/proj/Graphics_project/cmake.cmakePath/CMakeFiles/CMakeScratch/TryCompile-m9g2iq"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'E:/labs_2024_fall/cmps_205/proj/Graphics_project/cmake.cmakePath/CMakeFiles/CMakeScratch/TryCompile-m9g2iq'
+        
+        Run Build Command(s): D:/mysys2/usr/bin/ninja.exe -v cmTC_b28e5
+        [1/2] C:\\MinGW\\bin\\gcc.exe   -v -o CMakeFiles/cmTC_b28e5.dir/CMakeCCompilerABI.c.obj -c 'C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeCCompilerABI.c'
+        FAILED: CMakeFiles/cmTC_b28e5.dir/CMakeCCompilerABI.c.obj 
+        C:\\MinGW\\bin\\gcc.exe   -v -o CMakeFiles/cmTC_b28e5.dir/CMakeCCompilerABI.c.obj -c 'C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeCCompilerABI.c'
+        /bin/sh: line 1: C:MinGWbingcc.exe: command not found
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeTestCCompiler.cmake:56 (try_compile)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Check for working C compiler: C:/MinGW/bin/gcc.exe"
+    directories:
+      source: "E:/labs_2024_fall/cmps_205/proj/Graphics_project/cmake.cmakePath/CMakeFiles/CMakeScratch/TryCompile-ozg4rh"
+      binary: "E:/labs_2024_fall/cmps_205/proj/Graphics_project/cmake.cmakePath/CMakeFiles/CMakeScratch/TryCompile-ozg4rh"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_C_COMPILER_WORKS"
+      cached: true
+      stdout: |
+        Change Dir: 'E:/labs_2024_fall/cmps_205/proj/Graphics_project/cmake.cmakePath/CMakeFiles/CMakeScratch/TryCompile-ozg4rh'
+        
+        Run Build Command(s): D:/mysys2/usr/bin/ninja.exe -v cmTC_412ca
+        [1/2] C:\\MinGW\\bin\\gcc.exe    -o CMakeFiles/cmTC_412ca.dir/testCCompiler.c.obj -c 'E:/labs_2024_fall/cmps_205/proj/Graphics_project/cmake.cmakePath/CMakeFiles/CMakeScratch/TryCompile-ozg4rh/testCCompiler.c'
+        FAILED: CMakeFiles/cmTC_412ca.dir/testCCompiler.c.obj 
+        C:\\MinGW\\bin\\gcc.exe    -o CMakeFiles/cmTC_412ca.dir/testCCompiler.c.obj -c 'E:/labs_2024_fall/cmps_205/proj/Graphics_project/cmake.cmakePath/CMakeFiles/CMakeScratch/TryCompile-ozg4rh/testCCompiler.c'
+        /bin/sh: line 1: C:MinGWbingcc.exe: command not found
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+...
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: C:/MinGW/bin/gcc.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.exe"
+      
+      The C compiler identification is GNU, found in:
+        E:/labs_2024_fall/cmps_205/proj/Graphics_project/cmake.cmakePath/CMakeFiles/3.28.0-rc3/CompilerIdC/a.exe
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: C:/MinGW/bin/c++.exe 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.exe"
+      
+      The CXX compiler identification is GNU, found in:
+        E:/labs_2024_fall/cmps_205/proj/Graphics_project/cmake.cmakePath/CMakeFiles/3.28.0-rc3/CompilerIdCXX/a.exe
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "E:/labs_2024_fall/cmps_205/proj/Graphics_project/cmake.cmakePath/CMakeFiles/CMakeScratch/TryCompile-xl2dg2"
+      binary: "E:/labs_2024_fall/cmps_205/proj/Graphics_project/cmake.cmakePath/CMakeFiles/CMakeScratch/TryCompile-xl2dg2"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'E:/labs_2024_fall/cmps_205/proj/Graphics_project/cmake.cmakePath/CMakeFiles/CMakeScratch/TryCompile-xl2dg2'
+        
+        Run Build Command(s): D:/mysys2/usr/bin/ninja.exe -v cmTC_c5d21
+        [1/2] C:\\MinGW\\bin\\gcc.exe   -v -o CMakeFiles/cmTC_c5d21.dir/CMakeCCompilerABI.c.obj -c 'C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeCCompilerABI.c'
+        FAILED: CMakeFiles/cmTC_c5d21.dir/CMakeCCompilerABI.c.obj 
+        C:\\MinGW\\bin\\gcc.exe   -v -o CMakeFiles/cmTC_c5d21.dir/CMakeCCompilerABI.c.obj -c 'C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeCCompilerABI.c'
+        /bin/sh: line 1: C:MinGWbingcc.exe: command not found
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.28/Modules/CMakeTestCCompiler.cmake:56 (try_compile)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Check for working C compiler: C:/MinGW/bin/gcc.exe"
+    directories:
+      source: "E:/labs_2024_fall/cmps_205/proj/Graphics_project/cmake.cmakePath/CMakeFiles/CMakeScratch/TryCompile-pesf4g"
+      binary: "E:/labs_2024_fall/cmps_205/proj/Graphics_project/cmake.cmakePath/CMakeFiles/CMakeScratch/TryCompile-pesf4g"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_C_COMPILER_WORKS"
+      cached: true
+      stdout: |
+        Change Dir: 'E:/labs_2024_fall/cmps_205/proj/Graphics_project/cmake.cmakePath/CMakeFiles/CMakeScratch/TryCompile-pesf4g'
+        
+        Run Build Command(s): D:/mysys2/usr/bin/ninja.exe -v cmTC_dfefa
+        [1/2] C:\\MinGW\\bin\\gcc.exe    -o CMakeFiles/cmTC_dfefa.dir/testCCompiler.c.obj -c 'E:/labs_2024_fall/cmps_205/proj/Graphics_project/cmake.cmakePath/CMakeFiles/CMakeScratch/TryCompile-pesf4g/testCCompiler.c'
+        FAILED: CMakeFiles/cmTC_dfefa.dir/testCCompiler.c.obj 
+        C:\\MinGW\\bin\\gcc.exe    -o CMakeFiles/cmTC_dfefa.dir/testCCompiler.c.obj -c 'E:/labs_2024_fall/cmps_205/proj/Graphics_project/cmake.cmakePath/CMakeFiles/CMakeScratch/TryCompile-pesf4g/testCCompiler.c'
+        /bin/sh: line 1: C:MinGWbingcc.exe: command not found
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+...
