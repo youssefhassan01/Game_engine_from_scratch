@@ -24,6 +24,6 @@ void main(){
     tex_coord_red.x -= STRENGTH;
     frag_color.r = texture(tex, tex_coord).r;
     vec2 tex_coord_blue = tex_coord;
-    tex_coord_blue.x += STRENGTH;
+    tex_coord_blue.x += 2*STRENGTH;
     frag_color.b = texture(tex, tex_coord).b;
 }
