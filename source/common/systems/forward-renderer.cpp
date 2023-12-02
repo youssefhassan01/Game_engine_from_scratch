@@ -23,8 +23,9 @@ namespace our {
             // Hints: the sky will be draw after the opaque objects so we would need depth testing but which depth funtion should we pick?
             // We will draw the sphere from the inside, so what options should we pick for the face culling.
             PipelineState skyPipelineState{
-                skyPipelineState.faceCulling.enabled = false,
+                skyPipelineState.faceCulling.enabled = true,
                 skyPipelineState.faceCulling.frontFace = GL_CCW,
+                skyPipelineState.faceCulling.culledFace = GL_FRONT,
                 skyPipelineState.depthTesting.enabled = true,
                 skyPipelineState.depthTesting.function = GL_LEQUAL
             };
@@ -175,10 +176,14 @@ namespace our {
         //TODO: (Req 9) Draw all the opaque commands
         // Don't forget to set the "transform" uniform to be equal the model-view-projection matrix for each render command
         // If there is a sky material, draw the sky
-        for(auto i:opaqueCommands){
-            RenderCommand command = i;
+        for(auto command:opaqueCommands){
+            command.material->transparent = false;
+            command.material->setup();
             glm::mat4 transform = VP * command.localToWorld;
             command.material->shader->set("transform", transform);
+            command.material->shader->set("objectToWorld", command.localToWorld);
+            command.material->shader->set("objectToInvTranspose", glm::transpose(glm::inverse(command.localToWorld)));
+            command.material->shader->set("cameraPosition", camera->getOwner()->localTransform.position);
             command.mesh->draw();
         }
         if(this->skyMaterial){
@@ -206,10 +211,14 @@ namespace our {
         }
         //TODO: (Req 9) Draw all the transparent commands
         // Don't forget to set the "transform" uniform to be equal the model-view-projection matrix for each render command
-        for(auto i:transparentCommands){
-            RenderCommand command = i;
+        for(auto command:transparentCommands){
+            command.material->transparent = true;
+            command.material->setup();
             glm::mat4 transform = VP * command.localToWorld;
             command.material->shader->set("transform", transform);
+            command.material->shader->set("objectToWorld", command.localToWorld);
+            command.material->shader->set("objectToInvTranspose", glm::transpose(glm::inverse(command.localToWorld)));
+            command.material->shader->set("cameraPosition", camera->getOwner()->localTransform.position);
             command.mesh->draw();
         }
 
