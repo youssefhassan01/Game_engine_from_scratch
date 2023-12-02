@@ -6,7 +6,6 @@
 #include <iterator>
 #include <string>
 #include <glm/glm.hpp>
-#include <iostream>
 
 namespace our {
 
@@ -35,11 +34,11 @@ namespace our {
         T* addComponent(){
             static_assert(std::is_base_of<Component, T>::value, "T must inherit from Component");
             //TODO: (Req 8) Create an component of type T, set its "owner" to be this entity, then push it into the component's list
-            // Don't forget to return a pointer to the new component        [DONE]
+            // Don't forget to return a pointer to the new component
             T* newComponent = new T();
             newComponent->owner = this;
             this->components.push_back(newComponent);
-            return  newComponent;
+            return (newComponent);
         }
 
         // This template method searhes for a component of type T and returns a pointer to it
@@ -47,17 +46,11 @@ namespace our {
         template<typename T>
         T* getComponent(){
             //TODO: (Req 8) Go through the components list and find the first component that can be dynamically cast to "T*".
-            // Return the component you found, or return null of nothing was found. [DONE]
-            
-            for (auto it = components.begin(); it != components.end(); it++) {
-                // std::cerr << (*it)->getID() << std::endl;
-                //  std::cerr << "gwa" << std::endl;
-                T* component = dynamic_cast<T*>(*it);
-                if (component != NULL) {
-                    return component;
-                }
+            // Return the component you found, or return null of nothing was found.
+            for(auto it = components.begin(); it != components.end(); ++it){
+                if(dynamic_cast<T*>(*it) != nullptr)
+                    return dynamic_cast<T*>(*it);
             }
-            // std::cerr << "null" << std::endl;
             return nullptr;
         }
 
@@ -76,14 +69,12 @@ namespace our {
         template<typename T>
         void deleteComponent(){
             //TODO: (Req 8) Go through the components list and find the first component that can be dynamically cast to "T*".
-            // If found, delete the found component and remove it from the components list  [DONE]
-
-            for (auto it = components.begin(); it != components.end(); it++) {
-                T* component = dynamic_cast<T*>(*it);
-                if (component != NULL) {
+            // If found, delete the found component and remove it from the components list
+            for(auto it = components.begin(); it != components.end(); ++it){
+                if(dynamic_cast<T*>(*it) != nullptr){
                     delete *it;
                     components.erase(it);
-                    return;
+                    break;
                 }
             }
         }
@@ -101,24 +92,22 @@ namespace our {
         // This template method searhes for the given component and deletes it
         template<typename T>
         void deleteComponent(T const* component){
-            //TODO: (Req 8) Go through the components list and find the given component "component".    [DONE]
+            //TODO: (Req 8) Go through the components list and find the given component "component".
             // If found, delete the found component and remove it from the components list
-       
-            for (auto it = components.begin(); it != components.end(); it++) {
-                T* componentFound = dynamic_cast<T*>(*it);
-                if(componentFound != NULL && component == componentFound){
+            for(auto it = components.begin(); it != components.end(); it++){
+                if(*it == component ){
                     delete *it;
                     components.erase(it);
+                    break;
                 }
             }
-
         }
 
         // Since the entity owns its components, they should be deleted alongside the entity
         ~Entity(){
-            //TODO: (Req 8) Delete all the components in "components".  [DONE]
-            for (auto comp : components) {
-                delete comp;
+            //TODO: (Req 8) Delete all the components in "components".
+            for(auto it = components.begin(); it != components.end(); ++it){
+                delete *it;
             }
             components.clear();
         }
