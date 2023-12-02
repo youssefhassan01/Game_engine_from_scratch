@@ -107,7 +107,7 @@ void our::Application::configureOpenGL() {
     // Only enable core functionalities (disable features from older OpenGL versions that were removed in 3.3)
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     // Enable forward compatibility with newer OpenGL versions by removing deprecated functionalities
-    // This is necessary for some platforms
+    // This is necessary for some platforms MacOS that only support OpenGL 3.2
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
     //Make window size fixed (User can't resize it)
