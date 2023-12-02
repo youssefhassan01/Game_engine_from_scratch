@@ -46,8 +46,8 @@ namespace our {
         TintedMaterial::setup();
         shader->set("alphaThreshold",alphaThreshold);
         glActiveTexture(GL_TEXTURE0);
-        (texture != NULL) ? texture->bind() : texture->unbind();
-        (sampler != NULL) ? sampler->bind(0) : sampler->unbind(0);
+        (texture != nullptr) ? texture->bind() : texture->unbind();
+        (sampler != nullptr) ? sampler->bind(0) : sampler->unbind(0);
         shader->set("tex",0);
     }
 
