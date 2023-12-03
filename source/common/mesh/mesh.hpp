@@ -2,7 +2,9 @@
 
 #include <glad/gl.h>
 #include "vertex.hpp"
-
+//note to self : binding and un binding is done to add the array in the opengl state machine 
+//or remove it 
+//deleting it removes the array releases it enitrly from the gpu
 namespace our {
 
     #define ATTRIB_LOC_POSITION 0
@@ -29,30 +31,28 @@ namespace our {
         Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& elements)
         {
             //TODO: (Req 2) Write this function     [DONE]
-            // remember to store the number of elements in "elementCount" since you will need it for drawing
             elementCount = (int)elements.size();
-            // For the attribute locations, use the constants defined above: ATTRIB_LOC_POSITION, ATTRIB_LOC_COLOR, etc
 
-            
-            // Create the vertex array object
+            //define a vertex array and bind the array to the gpu 
             glGenVertexArrays(1, &VAO);
             glBindVertexArray(VAO);
-
-            // Create the vertex buffer
+        //define a vertex buffer and bind the array to the gpu 
+    //assign the type/size/data/and waht we will do with it in this case draw
             glGenBuffers(1, &VBO);      
             glBindBuffer(GL_ARRAY_BUFFER, VBO);
             glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
 
             // Set the vertex attribute pointers
-            //glEnableAttribPointer(index, size, type, normalized, stride, pointer);
+            //here we are defining the struct elements of the struct of the vertex 
+            //postion /color /text cordainate /noraml 
+            //the argumnts are: attribute type / number of arrgumnets /data type /normalise or not/ size in the struct/ off set in the struct
 
             glEnableVertexAttribArray(ATTRIB_LOC_POSITION);
             glVertexAttribPointer(ATTRIB_LOC_POSITION, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
 
             glEnableVertexAttribArray(ATTRIB_LOC_COLOR);
             glVertexAttribPointer(ATTRIB_LOC_COLOR, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), (void*)offsetof(Vertex, color));
-            //We had to change GL_FLOAT to GL_UNSIGNED_BYTE to get the color to show up (for efficiency reasons specified in vertex.hpp)
-            
+ 
 
             glEnableVertexAttribArray(ATTRIB_LOC_TEXCOORD);
             glVertexAttribPointer(ATTRIB_LOC_TEXCOORD, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, tex_coord));
@@ -88,7 +88,6 @@ namespace our {
 
         }
 
-        // this function should delete the vertex & element buffers and the vertex array object
         ~Mesh(){
             //TODO: (Req 2) Write this function   [DONE]
             glDeleteBuffers(1, &VBO);

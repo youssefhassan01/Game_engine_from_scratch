@@ -4,35 +4,31 @@
 
 namespace our {
 
-    // This class defined an OpenGL texture which will be used as a GL_TEXTURE_2D
     class Texture2D {
-        // The OpenGL object name of this texture 
-        GLuint name = 0;
+        GLuint name = 0;//this is an opengl int 
     public:
-        // This constructor creates an OpenGL texture and saves its object name in the member variable "name" 
         Texture2D() {
             //TODO: (Req 5) Complete this function
+            //create a texture id
              glGenTextures(1, &name);
         };
 
-        // This deconstructor deletes the underlying OpenGL texture
         ~Texture2D() { 
             //TODO: (Req 5) Complete this function
+            //delete the texture for resources
              glDeleteTextures(1, &name);
         }
 
-        // Get the internal OpenGL name of the texture which is useful for use with framebuffers
         GLuint getOpenGLName() {
             return name;
         }
 
-        // This method binds this texture to GL_TEXTURE_2D
         void bind() const {
             //TODO: (Req 5) Complete this function
+            //bind to opengl state machine 
              glBindTexture(GL_TEXTURE_2D, name);
         }
 
-        // This static method ensures that no texture is bound to GL_TEXTURE_2D
         static void unbind(){
             //TODO: (Req 5) Complete this function
             glBindTexture(GL_TEXTURE_2D, 0);

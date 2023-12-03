@@ -1,5 +1,6 @@
 #version 330
-
+//vert is the vertex shader file where w input the location of each vertex
+//and we can perform transformations on it in here
 // This vertex shader should be used to render a triangle whose normalized device coordinates are:
 // (-0.5, -0.5, 0.0), ( 0.5, -0.5, 0.0), ( 0.0,  0.5, 0.0)
 // And it also should send the vertex color as a varying to the fragment shader where the colors are (in order):
@@ -34,8 +35,9 @@ void main(){
     vec3 positions = initialPositions[gl_VertexID];
     positions.xy *= scale;
     positions.xy += translation;
-
+    //this is the built in postion for the triangle being changed 
     gl_Position = vec4(positions,1.0);
+   // here we output the color to the fragment shader 
 
     vs_out.color = initialColors[gl_VertexID];
 }
