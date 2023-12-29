@@ -26,7 +26,7 @@ namespace our
             //  Hints: the sky will be draw after the opaque objects so we would need depth testing but which depth funtion should we pick?
             //  We will draw the sphere from the inside, so what options should we pick for the face culling.
             PipelineState skyPipelineState{
-                skyPipelineState.faceCulling.enabled = true,
+                skyPipelineState.faceCulling.enabled = true, // since it's sky and I won't need the back face
                 skyPipelineState.faceCulling.frontFace = GL_CCW,
                 skyPipelineState.faceCulling.culledFace = GL_FRONT,
                 skyPipelineState.depthTesting.enabled = true,
@@ -63,10 +63,10 @@ namespace our
             //  Hints: The color format can be (Red, Green, Blue and Alpha components with 8 bits for each channel).
             //  The depth format can be (Depth component with 24 bits).
             glBindFramebuffer(GL_FRAMEBUFFER, postprocessFrameBuffer);
-            colorTarget = texture_utils::empty(GL_RGBA, windowSize);
-            depthTarget = texture_utils::empty(GL_DEPTH_COMPONENT, windowSize);
-            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorTarget->getOpenGLName(), 0);
-            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTarget->getOpenGLName(), 0);
+            colorTarget = texture_utils::empty(GL_RGBA, windowSize); // This to create texture object to store the colors 
+            depthTarget = texture_utils::empty(GL_DEPTH_COMPONENT, windowSize); // This to create texture object to store depth
+            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorTarget->getOpenGLName(), 0); // Assign color texture object to framebuffer
+            glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTarget->getOpenGLName(), 0); // Assign depth texture object to framebuffer
             // TODO: (Req 11) Unbind the framebuffer just to be safe
             glBindFramebuffer(GL_FRAMEBUFFER, 0);
             // Create a vertex array to use for drawing the texture
@@ -159,7 +159,7 @@ namespace our
 
         // TODO: (Req 9) Modify the following line such that "cameraForward" contains a vector pointing the camera forward direction
         //  HINT: See how you wrote the CameraComponent::getViewMatrix, it should help you solve this one
-        glm::mat4 View_matrix = camera->getViewMatrix();
+        glm::mat4 View_matrix = camera->getViewMatrix(); //b
         glm::vec3 cameraForward = glm::vec3(View_matrix[2][0], View_matrix[2][1], View_matrix[2][2]);
         std::sort(transparentCommands.begin(), transparentCommands.end(), [cameraForward](const RenderCommand &first, const RenderCommand &second)
                   {

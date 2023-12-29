@@ -15,6 +15,9 @@ namespace our {
     class Mesh {
         // Here, we store the object names of the 3 main components of a mesh:
         // A vertex array object, A vertex buffer and an element buffer
+        //the VBO (vertex buffer object) contains the data of the vertex 
+        //EBO elment buffer object represents the drawing order of the vertices 
+        //VAO connects both the elemt and vertex as it has the settings of it 
         unsigned int VBO, EBO;
         unsigned int VAO;
         // We need to remember the number of elements that will be draw by glDrawElements 
@@ -57,6 +60,7 @@ namespace our {
             glEnableVertexAttribArray(ATTRIB_LOC_TEXCOORD);
             glVertexAttribPointer(ATTRIB_LOC_TEXCOORD, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, tex_coord));
 
+            //this is the noraml attribute of the mesh (where the surface is pointing) 3 is for the x,y,z
             glEnableVertexAttribArray(ATTRIB_LOC_NORMAL);
             glVertexAttribPointer(ATTRIB_LOC_NORMAL, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
 

@@ -11,9 +11,11 @@ our::Texture2D *our::texture_utils::empty(GLenum format, glm::ivec2 size)
     // TODO: (Req 11) Finish this function to create an empty texture with the given size and format
 
     texture->bind();
-    //4 byte padding is the defult value for the texture in opengl also most textures are 32 bit so that ensures that it is align perfectly  
+    //GL_UNPACK_ALIGNMENT: this determines the unpack alignemnt of the texture pack 
+    //4 sets the start of the alignment location in memory
+    //as most rows are 32 bits we use 4 by defualt as in 4 bytes 
     glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
-    //the target,mip level , color formate ,size ,border ,pixel formate ,data typen of teh pixel ,intial pointer to the data is null 
+    //the target,mip level , texture formate ,size ,border ,pixel formate ,data typen of teh pixel ,intial pointer to the data is null 
     glTexImage2D(GL_TEXTURE_2D, 0, format, size.x, size.y, 0, format, GL_UNSIGNED_BYTE, nullptr);
 
 
@@ -25,7 +27,7 @@ our::Texture2D *our::texture_utils::loadImage(const std::string &filename, bool 
 {
     glm::ivec2 size;
     int channels;
-
+//we draw form the top left so we have to flip vertically to start from the bottom left 
     stbi_set_flip_vertically_on_load(true);
 
     unsigned char *pixels = stbi_load(filename.c_str(), &size.x, &size.y, &channels, 4);
