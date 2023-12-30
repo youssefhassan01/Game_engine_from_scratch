@@ -5,7 +5,7 @@
 #include "mesh-renderer.hpp"
 #include "free-camera-controller.hpp"
 #include "movement.hpp"
-
+#include "collision.hpp"
 namespace our {
 
     // Given a json object, this function picks and creates a component in the given entity
@@ -23,6 +23,9 @@ namespace our {
         }
         else if(type == MeshRendererComponent::getID()){
             component = entity->addComponent<MeshRendererComponent>();
+        }
+        else if(type == CollisionComponent::getID()){
+            component = entity->addComponent<CollisionComponent>();
         }
         if(component) component->deserialize(data);
     }
