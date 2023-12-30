@@ -10,6 +10,8 @@
 #include <glm/gtc/constants.hpp>
 #include <glm/trigonometric.hpp>
 #include <glm/gtx/fast_trigonometry.hpp>
+#include <vector>
+
 
 namespace our
 {
@@ -174,43 +176,64 @@ namespace our
             }
 Entity *cat = nullptr;
 Entity *platform = nullptr;
+Entity *Winplatform = nullptr;
+
+std::vector<Entity*> platforms;
 
 // Find the cat and platform entities
 for (auto entity : world->getEntities()) {
     if (entity->name == "cat") {
         cat = entity;
-        printf("cat found\n");
     }    
     if (entity->name == "platform") {
-        platform = entity;
-        printf("platform found\n");
+        platforms.push_back(entity);
+    }
+        if (entity->name == "Winplatform") {
+        Winplatform = entity;
     }
 }
 
-if (cat && platform) {
+if (cat && !platforms.empty()) {
     // Get the camera entity
     if (entity) {
-glm::vec3 catPos = cat->localTransform.position;
-    glm::vec3 cameraPos = entity->localTransform.position;
+        glm::vec3 catPos = cat->localTransform.position;
+        glm::vec3 cameraPos = entity->localTransform.position;
 
-    // Assuming the cat's position is relative to the camera
-    glm::vec3 absoluteCatPos = cameraPos + catPos;
+        // Assuming the cat's position is relative to the camera
+        glm::vec3 absoluteCatPos = cameraPos + catPos;
 
-    printf("cat position: %f %f %f\n", absoluteCatPos.x, absoluteCatPos.y, absoluteCatPos.z);
+        printf("cat position: %f %f %f\n", absoluteCatPos.x, absoluteCatPos.y, absoluteCatPos.z);
 
-    glm::vec3 platformPos = platform->localTransform.position;
-    printf("platform position: %f %f %f\n", platformPos.x, platformPos.y, platformPos.z);
+        // Iterate over all platform entities
+        for (auto platform : platforms) {
+            glm::vec3 platformPos = platform->localTransform.position;
+            printf("platform position: %f %f %f\n", platformPos.x, platformPos.y, platformPos.z);
 
-    float catRadius = cat->localTransform.radius;
-    float platformRadius = platform->localTransform.radius;
-    float distance = glm::distance(absoluteCatPos, platformPos);
+            float catRadius = cat->localTransform.radius;
+            float platformRadius = platform->localTransform.radius;
+            float distance = glm::distance(absoluteCatPos, platformPos);
 
-    if (distance < catRadius + platformRadius) {
-        // Collision detected
-        // Move the camera (assuming it's the cat's parent entity) away from the platform
-        glm::vec3 direction = glm::normalize(absoluteCatPos - platformPos);
-        entity->localTransform.position += direction * (catRadius + platformRadius - distance);
-    }
+            if (distance < catRadius + platformRadius) {
+                // Collision detected
+                // Move the camera (assuming it's the cat's parent entity) away from the platform
+                glm::vec3 direction = glm::normalize(absoluteCatPos - platformPos);
+                entity->localTransform.position += direction * (catRadius + platformRadius - distance);
+            }
+        }
+            glm::vec3 platformPos = Winplatform->localTransform.position;
+            printf("platform position: %f %f %f\n", platformPos.x, platformPos.y, platformPos.z);
+
+            float catRadius = cat->localTransform.radius;
+            float platformRadius = Winplatform->localTransform.radius;
+            float distance = glm::distance(absoluteCatPos, platformPos);
+
+            if (distance < catRadius + platformRadius) {
+                // Collision detected
+                // Move the camera (assuming it's the cat's parent entity) away from the platform
+                glm::vec3 direction = glm::normalize(absoluteCatPos - platformPos);
+                entity->localTransform.position += direction * (catRadius + platformRadius - distance);
+                printf("You Win!\n");
+
     }
 }
 
