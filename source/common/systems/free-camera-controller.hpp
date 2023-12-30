@@ -121,48 +121,99 @@ namespace our
                 position += right * (deltaTime * current_sensitivity.x);
             if (app->getKeyboard().isPressed(GLFW_KEY_A))
                 position -= right * (deltaTime * current_sensitivity.x);
-            if (app->getKeyboard().isPressed(GLFW_KEY_SPACE)) {
-            if (!isJumping) {
-                // Start the jump
-                isJumping = true;
-                jumpVelocity = std::sqrt(2.0f * gravity * jumpHeight);
+            if (app->getKeyboard().isPressed(GLFW_KEY_SPACE))
+            {
+                if (!isJumping)
+                {
+                    // Start the jump
+                    isJumping = true;
+                    jumpVelocity = std::sqrt(2.0f * gravity * jumpHeight);
+                }
             }
-        } else {
-            isJumping = false;
-        }
-
-        // Update jump physics
-        if (isJumping) {
-            // Move the camera up based on the jump velocity
-            position += up * (deltaTime * jumpVelocity);
-
-            // Update jump velocity based on gravity
-            jumpVelocity -= gravity * deltaTime;
-
-            // Check if the camera has reached the ground
-            if (position.y <= 0.0f) {
-                // Reset position and jump state
-                position.y = 0.0f;
+            else
+            {
                 isJumping = false;
-                jumpVelocity = 0.0f; // Reset jump velocity
             }
-        } else if (position.y > 0.0f) {
-            // Descend if the camera is above the ground
-            position -= up * (deltaTime * jumpVelocity);
 
-            // Update descent velocity based on gravity
-            jumpVelocity += gravity * deltaTime;
+            // Update jump physics
+            if (isJumping)
+            {
+                // Move the camera up based on the jump velocity
+                position += up * (deltaTime * jumpVelocity);
 
-            // Clamp descent velocity to prevent excessive speed
-            jumpVelocity = glm::max(jumpVelocity, -10.0f);
+                // Update jump velocity based on gravity
+                jumpVelocity -= gravity * deltaTime;
 
-            // Check if the camera has reached the ground
-            if (position.y <= 0.0f) {
-                // Reset position and descent state
-                position.y = 0.0f;
-                jumpVelocity = 0.0f; // Reset descent velocity
+                // Check if the camera has reached the ground
+                if (position.y <= 0.0f)
+                {
+                    // Reset position and jump state
+                    position.y = 0.0f;
+                    isJumping = false;
+                    jumpVelocity = 0.0f; // Reset jump velocity
+                }
             }
-        }
+            else if (position.y > 0.0f)
+            {
+                // Descend if the camera is above the ground
+                position -= up * (deltaTime * jumpVelocity);
+
+                // Update descent velocity based on gravity
+                jumpVelocity += gravity * deltaTime;
+
+                // Clamp descent velocity to prevent excessive speed
+                jumpVelocity = glm::max(jumpVelocity, -10.0f);
+
+                // Check if the camera has reached the ground
+                if (position.y <= 0.0f)
+                {
+                    // Reset position and descent state
+                    position.y = 0.0f;
+                    jumpVelocity = 0.0f; // Reset descent velocity
+                }
+            }
+Entity *cat = nullptr;
+Entity *platform = nullptr;
+
+// Find the cat and platform entities
+for (auto entity : world->getEntities()) {
+    if (entity->name == "cat") {
+        cat = entity;
+        printf("cat found\n");
+    }    
+    if (entity->name == "platform") {
+        platform = entity;
+        printf("platform found\n");
+    }
+}
+
+if (cat && platform) {
+    // Get the camera entity
+    if (entity) {
+glm::vec3 catPos = cat->localTransform.position;
+    glm::vec3 cameraPos = entity->localTransform.position;
+
+    // Assuming the cat's position is relative to the camera
+    glm::vec3 absoluteCatPos = cameraPos + catPos;
+
+    printf("cat position: %f %f %f\n", absoluteCatPos.x, absoluteCatPos.y, absoluteCatPos.z);
+
+    glm::vec3 platformPos = platform->localTransform.position;
+    printf("platform position: %f %f %f\n", platformPos.x, platformPos.y, platformPos.z);
+
+    float catRadius = cat->localTransform.radius;
+    float platformRadius = platform->localTransform.radius;
+    float distance = glm::distance(absoluteCatPos, platformPos);
+
+    if (distance < catRadius + platformRadius) {
+        // Collision detected
+        // Move the camera (assuming it's the cat's parent entity) away from the platform
+        glm::vec3 direction = glm::normalize(absoluteCatPos - platformPos);
+        entity->localTransform.position += direction * (catRadius + platformRadius - distance);
+    }
+    }
+}
+
         }
 
         // When the state exits, it should call this function to ensure the mouse is unlocked
