@@ -60,4 +60,112 @@ namespace our {
         sampler = AssetLoader<Sampler>::get(data.value("sampler", ""));
     }
 
+    void LitMaterial::setup() const{
+        // Start parent (others were too complicated to start so start from Material) 
+        TexturedMaterial::setup();
+        glActiveTexture(GL_TEXTURE1);
+        // check for diffuse texture or color and use it or unbind others that exist 
+        if(albedo_map){
+            albedo_map->bind();
+        }
+        else{
+            Texture2D::unbind();
+        }
+        // bind sampler to it to apply options
+        if(sampler){
+            map_sampler->bind(1);
+        }
+        else{
+            Sampler::unbind(1);
+        }
+        // call shader to set the diffuse value
+        shader->set("material.diffuse_map",1);
+        
+        glActiveTexture(GL_TEXTURE2);
+        // check for specular texture or color and use it or unbind others that exist 
+        if(specular_map){
+            specular_map->bind();
+        }
+        else{
+            Texture2D::unbind();
+        }
+        // bind sampler to it to apply options
+        if(sampler){
+            map_sampler->bind(2);
+        }
+        else{
+            Sampler::unbind(2);
+        }
+        // call shader to set the specular value
+        shader->set("material.specular_map",2);
+        
+        glActiveTexture(GL_TEXTURE3);
+        // check for emission texture or color and use it or unbind others that exist 
+        if(emission_map){
+            emission_map->bind();
+        }
+        else{
+            Texture2D::unbind();
+        }
+        // bind sampler to it to apply options
+        if(sampler){
+            map_sampler->bind(3);
+        }
+        else{
+            Sampler::unbind(3);
+        }
+        // call shader to set the emission value
+        shader->set("material.emission_map",3);
+        
+        glActiveTexture(GL_TEXTURE4);
+        // check for roughness texture or color and use it or unbind others that exist 
+        if(roughness_map){
+            roughness_map->bind();
+        }
+        else{
+            Texture2D::unbind();
+        }
+        // bind sampler to it to apply options
+        if(sampler){
+            map_sampler->bind(4);
+        }
+        else{
+            Sampler::unbind(4);
+        }
+        // call shader to set the roughness value
+        shader->set("material.roughness_map",4);
+        
+        glActiveTexture(GL_TEXTURE5);
+        // check for diffuse texture or color and use it or unbind others that exist 
+        if(ambient_occ_map){
+            ambient_occ_map->bind();
+        }
+        else{
+            Texture2D::unbind();
+        }
+        // bind sampler to it to apply options
+        if(sampler){
+            map_sampler->bind(5);
+        }
+        else{
+            Sampler::unbind(5);
+        }
+        // call shader to set the albedo value
+        shader->set("material.ambient_occ_map",5);
+
+    }
+
+    void LitMaterial::deserialize(const nlohmann::json& data){
+        TexturedMaterial::deserialize(data);
+
+        if (!data.is_object()){
+            return;
+        }
+
+        albedo_map = AssetLoader<Texture2D>::get(data.value("albedo_map","black"));
+        specular_map = AssetLoader<Texture2D>::get(data.value("specular_map","black"));
+        emission_map = AssetLoader<Texture2D>::get(data.value("roughness_map","black"));
+        ambient_occ_map = AssetLoader<Texture2D>::get(data.value("ambient_occ_map","white"));
+        roughness_map = AssetLoader<Texture2D>::get(data.value("roughness_map","black"));
+    }
 }

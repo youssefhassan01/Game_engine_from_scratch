@@ -126,6 +126,8 @@ namespace our
         CameraComponent *camera = nullptr;
         opaqueCommands.clear();
         transparentCommands.clear();
+        light.clear();
+
         for (auto entity : world->getEntities())
         {
             // If we hadn't found a camera yet, we look for a camera in this entity
@@ -150,6 +152,10 @@ namespace our
                     // Otherwise, we add it to the opaque command list
                     opaqueCommands.push_back(command);
                 }
+            }
+            else if (auto lightComponent = entity->getComponent<LightComponent>(); lightComponent)
+            {
+                light.push_back(lightComponent);
             }
         }
 
@@ -198,7 +204,42 @@ namespace our
             command.material->shader->set("transform", transform);
             command.material->shader->set("objectToWorld", command.localToWorld);
             command.material->shader->set("objectToInvTranspose", glm::transpose(glm::inverse(command.localToWorld)));
+            command.material->shader->set("light_count", (int)light.size());
+            command.material->shader->set("view_projection", VP );
             command.material->shader->set("cameraPosition", camera->getOwner()->localTransform.position);
+
+            for (int i=0; i<light.size(); i++){
+                std::string light_index = "light[" + std::to_string(i) + "].";
+                command.material->shader->set(light_index + "type", static_cast<int>(light[i]->type));
+                command.material->shader->set(light_index + "diffuse", light[i]->diffuse_light);
+                command.material->shader->set(light_index + "ambient", light[i]->ambient_light);
+                command.material->shader->set(light_index + "specular", light[i]->specular_light);
+
+                if (light[i]->type == lType::DIRECTIONAL){
+                    command.material->shader->set(light_index+"direction",glm::vec3(light[i]->getOwner()->getLocalToWorldMatrix()*glm::vec4(0.0,-1.0,0.0,0.0)));
+                }
+                else if (light[i]->type == lType::POINT){
+                        command.material->shader->set(light_index + "position", glm::vec3(light[i]->getOwner()->getLocalToWorldMatrix() * glm::vec4(light[i]->getOwner()->localTransform.position, 0.0f)));
+                        command.material->shader->set(light_index + "direction", glm::vec3(light[i]->getOwner()->getLocalToWorldMatrix()*glm::vec4(0.0,-1.0,0.0,0.0)));
+                        command.material->shader->set(light_index + "attenuation_constant", light[i]->attenuation.constant);
+                        command.material->shader->set(light_index + "attenuation_linear", light[i]->attenuation.linear);
+                        command.material->shader->set(light_index + "attenuation_quadratic", light[i]->attenuation.quad);
+                }
+                else if (light[i]->type == lType::SPOTLIGHT){
+                        command.material->shader->set(light_index + "position", glm::vec3(light[i]->getOwner()->getLocalToWorldMatrix() * glm::vec4(light[i]->getOwner()->localTransform.position, 0.0f)));
+                        command.material->shader->set(light_index + "direction", glm::vec3(light[i]->getOwner()->getLocalToWorldMatrix()*glm::vec4(0.0,-1.0,0.0,0.0)));
+                        command.material->shader->set(light_index + "attenuation_constant", light[i]->attenuation.constant);
+                        command.material->shader->set(light_index + "attenuation_linear", light[i]->attenuation.linear);
+                        command.material->shader->set(light_index + "attenuation_quadratic", light[i]->attenuation.quad);
+                        command.material->shader->set(light_index + "inner_angle", light[i]->spotAngle.innerCone);
+                        command.material->shader->set(light_index + "outer_angle", light[i]->spotAngle.outerCone);
+                }
+
+                if(i>=11){
+                    break;
+                }
+            }
+            
             command.mesh->draw();
         }
         if (this->skyMaterial)
@@ -237,7 +278,42 @@ namespace our
             command.material->shader->set("transform", transform);
             command.material->shader->set("objectToWorld", command.localToWorld);
             command.material->shader->set("objectToInvTranspose", glm::transpose(glm::inverse(command.localToWorld)));
+            command.material->shader->set("light_count", (int)light.size());
+            command.material->shader->set("view_projection", VP );
             command.material->shader->set("cameraPosition", camera->getOwner()->localTransform.position);
+
+            for (int i=0; i<light.size(); i++){
+                std::string light_index = "light[" + std::to_string(i) + "].";
+                command.material->shader->set(light_index + "type", static_cast<int>(light[i]->type));
+                command.material->shader->set(light_index + "diffuse", light[i]->diffuse_light);
+                command.material->shader->set(light_index + "ambient", light[i]->ambient_light);
+                command.material->shader->set(light_index + "specular", light[i]->specular_light);
+
+                if (light[i]->type == lType::DIRECTIONAL){
+                    command.material->shader->set(light_index+"direction",glm::vec3(light[i]->getOwner()->getLocalToWorldMatrix()*glm::vec4(0.0,-1.0,0.0,0.0)));
+                }
+                else if (light[i]->type == lType::POINT){
+                        command.material->shader->set(light_index + "position", glm::vec3(light[i]->getOwner()->getLocalToWorldMatrix() * glm::vec4(light[i]->getOwner()->localTransform.position, 0.0f)));
+                        command.material->shader->set(light_index + "direction", glm::vec3(light[i]->getOwner()->getLocalToWorldMatrix()*glm::vec4(0.0,-1.0,0.0,0.0)));
+                        command.material->shader->set(light_index + "attenuation_constant", light[i]->attenuation.constant);
+                        command.material->shader->set(light_index + "attenuation_linear", light[i]->attenuation.linear);
+                        command.material->shader->set(light_index + "attenuation_quadratic", light[i]->attenuation.quad);
+                }
+                else if (light[i]->type == lType::SPOTLIGHT){
+                        command.material->shader->set(light_index + "position", glm::vec3(light[i]->getOwner()->getLocalToWorldMatrix() * glm::vec4(light[i]->getOwner()->localTransform.position, 0.0f)));
+                        command.material->shader->set(light_index + "direction", glm::vec3(light[i]->getOwner()->getLocalToWorldMatrix()*glm::vec4(0.0,-1.0,0.0,0.0)));
+                        command.material->shader->set(light_index + "attenuation_constant", light[i]->attenuation.constant);
+                        command.material->shader->set(light_index + "attenuation_linear", light[i]->attenuation.linear);
+                        command.material->shader->set(light_index + "attenuation_quadratic", light[i]->attenuation.quad);
+                        command.material->shader->set(light_index + "inner_angle", light[i]->spotAngle.innerCone);
+                        command.material->shader->set(light_index + "outer_angle", light[i]->spotAngle.outerCone);
+                }
+                
+                if(i>=11){
+                    break;
+                }
+            }
+
             command.mesh->draw();
         }
 
