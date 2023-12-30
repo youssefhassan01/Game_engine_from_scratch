@@ -213,7 +213,7 @@
                     {
                         "type": "Mesh Renderer",
                         "mesh": "cube",
-                        "material": "metal"
+                        "material": "grass"
                     },
                     {
                         "type": "Movement",
@@ -231,7 +231,7 @@
                             {
                                 "type": "Mesh Renderer",
                                 "mesh": "cube",
-                                "material": "metal"
+                                "material": "grass"
                             },
                             {
                                 "type": "Movement",
@@ -244,6 +244,42 @@
             {
                 "rotation": [2, 0, 0],
                 "position": [2, 2, 2],
+                "scale":[2,0.5,2],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "cube",
+                        "material": "grass"
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0, 0, 0],
+                        "angularVelocity": [0, 0, 0]
+                    }
+                ]
+            },       
+            //platform 4
+            {
+                "rotation": [2, 0, 0],
+                "position": [3, 3, 3],
+                "scale":[2,0.5,2],
+                "components": [
+                    {
+                        "type": "Mesh Renderer",
+                        "mesh": "cube",
+                        "material": "grass"
+                    },
+                    {
+                        "type": "Movement",
+                        "linearVelocity": [0, 0, 0],
+                        "angularVelocity": [0, 0, 0]
+                    }
+                ]
+            },       
+            //platform 5
+            {
+                "rotation": [2, 0, 0],
+                "position": [4, 4, 4],
                 "scale":[2,0.5,2],
                 "components": [
                     {
